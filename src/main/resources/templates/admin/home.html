@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Admin Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet" th:href="@{/css/box.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+th {
+	color: navy;
+	font-weight: bold;
+	background-color: #d0efed;
+	padding: 5px;
+	text-align: center;
+}
+
+td {
+	padding: 0px;
+	color: navy;
+}
+
+.decorate:table {
+	width: 50%;
+}
+
+.decorate:td {
+	color: blue;
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<form th:action="@{/logout}" method="get">
+			<button class="btn btn-md btn-danger btn-block" name="registration"
+				type="Submit">Logout</button>
+		</form>
+
+		<div class="panel-group" style="margin-top: 40px">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span th:utext="${userName}"></span>
+				</div>
+				<br></br> <br></br>
+				<table cellpadding="5" cellspacing="10" align="center"
+					style="text-align: center;">
+					<tbody align="center">
+						<tr>
+							<td><form>
+									<input class="MyButton" type="button" value="Add Jobs"
+										onclick="window.location.href='/admin/addJobView'" />
+								</form></td>
+							<td><form>
+									<input class="MyButton" type="button" value="Add Moderator"
+										onclick="window.location.href='/admin/addModeratorView'" />
+								</form></td>
+							<td><form>
+									<input class="MyButton" type="button" value="Job Applied"
+										onclick="window.location.href='/admin/jobAppliedView'" />
+								</form></td>
+						</tr>
+					</tbody>
+				</table>
+				<br></br>
+				<p th:text="${deleteMessage}"
+					style="color: red; text-align: center; font-weight: bold;">
+				<p>
+				<p th:text="${updateMessage}"
+					style="color: green; text-align: center; font-weight: bold;">
+				<p>
+					<br></ br>
+				<div align="center">
+					<table class="decorate" border="1" cellpadding="5" cellspacing="5"
+						style="text-align: center;">
+						<tr>
+							<th>JobID</th>
+							<th>Technology</th>
+							<th>Location</th>
+							<th>Company</th>
+							<th>Designation</th>
+							<th>ProjectName</th>
+							<th>Client</th>
+							<th>ProjectIG</th>
+							<th>TeamSize</th>
+							<th>Description</th>
+							<th>PostDate</th>
+							<th>PostedBy</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+						<tr th:each="job : ${jobs}">
+							<td th:text="${job.jobID}"></td>
+							<td th:text="${job.technology}"></td>
+							<td th:text="${job.location}"></td>
+							<td th:text="${job.company}"></td>
+							<td th:text="${job.designation}"></td>
+							<td th:text="${job.projectName}"></td>
+							<td th:text="${job.client}"></td>
+							<td th:text="${job.projectIG}"></td>
+							<td th:text="${job.teamSize}"></td>
+							<td th:text="${job.description}"></td>
+							<td th:text="${job.postDate}"></td>
+							<td th:text="${job.postedBy}"></td>
+							<td><a
+								th:href="@{'/admin/updatePostView?id=' + ${job.jobID}}"><img
+									th:src="@{/images/update.jpg}" height="30px" width="60px" /></a></td>
+							<td><a th:href="@{'/admin/deletePost?id=' + ${job.jobID}}"><img
+									th:src="@{/images/delete.jpg}" height="30px" width="60px" /></a></td>
+						</tr>
+					</table>
+				</div>
+				<p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
